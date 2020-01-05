@@ -33,7 +33,7 @@ class CircuitBreakerSpec extends AsyncFlatSpec with Matchers with BeforeAndAfter
     val breaker      = new CircuitBreaker(system.scheduler, maxFailures, callTimeout, resetTimeout)(system.dispatcher)
 
     // The circuit breaker should open in the second step when the call throws an exception. The third step should then
-    // fail with a CircuitBreakerOpenException. However, it fails with an IllegalStateException instead.
+    // fail with a CircuitBreakerOpenException. However, the second step fails with an IllegalStateException instead.
     recoverToSucceededIf[CircuitBreakerOpenException] {
       val openBreaker =
         for {
